@@ -82,10 +82,13 @@ const replaceHtmlContent = (sourceFilePath, targetFilePath, selector) => {
   
       // Find the element to be replaced in the source HTML
       const elementToReplace = $source(selector);
-  
+      console.log("elementToReplace before: " + elementToReplace);
+
       // Replace the content of the element with the target HTML content
       elementToReplace.html($target.html());
+        console.log("elementToReplace after: " + elementToReplace);
 
+        console.log("Source HTML: " + $source.html());  
       // Write the modified HTML back to a new file
       fs.writeFileSync(sourceFilePath, $source.html(), 'utf8');
       console.log('The HTML content has been replaced and saved as "_error.html"');
