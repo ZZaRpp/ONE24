@@ -90,10 +90,12 @@ const replaceHtmlContent = (sourceFilePath, targetFilePath, selector) => {
 
         console.log("Source HTML: " + $source.html());  
       // Write the modified HTML back to a new file
-      fs.writeFileSync(sourceFilePath, $source.html(), 'utf8');
+      fs.writeFileSync(sourceFilePath, $source.html());
       console.log('The HTML content has been replaced and saved as "_error.html"');
+
+      const sourceHtmlchanged = readFileSync(sourceFilePath);
       console.log("---- Start " + sourceFilePath + " ----");
-      console.log(sourceHtml);
+      console.log(sourceHtmlchanged);
       console.log("---- End " + sourceFilePath + " ----");
   
     } catch (err) {
