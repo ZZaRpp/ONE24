@@ -72,6 +72,10 @@ const replaceHtmlContent = (sourceFilePath, targetFilePath, selector) => {
         const sourceHtml = readFileSync(sourceFilePath);
         const targetHtml = readFileSync(targetFilePath);
   
+        console.log("---- Start " + sourceFilePath + " ----");
+        console.log(sourceHtml);
+        console.log("---- End " + sourceFilePath + " ----");
+
       // Load the HTML content using cheerio
       const $source = cheerio.load(sourceHtml);
       const $target = cheerio.load(targetHtml);
@@ -83,8 +87,11 @@ const replaceHtmlContent = (sourceFilePath, targetFilePath, selector) => {
       elementToReplace.html($target.html());
 
       // Write the modified HTML back to a new file
-      fs.writeFileSync('_error.html', $source.html(), 'utf8');
+      fs.writeFileSync(sourceFilePath, $source.html(), 'utf8');
       console.log('The HTML content has been replaced and saved as "_error.html"');
+      console.log("---- Start " + sourceFilePath + " ----");
+      console.log(sourceHtml);
+      console.log("---- End " + sourceFilePath + " ----");
   
     } catch (err) {
       console.error('Error:', err);
