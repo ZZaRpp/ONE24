@@ -1,11 +1,20 @@
 const fs = require('fs');
+const path = require('path');
 
 module.exports = function (context) {
     
-    const sourceFilePath = context.opts.projectRoot + "/www/_error.html";
-    const targetFilePath = context.opts.projectRoot + "/www/custom_error.html";
+    //const sourceFilePath = context.opts.projectRoot + "/www/_error.html";
+    //const targetFilePath = context.opts.projectRoot + "/www/custom_error.html";
     const startTag = '<div id="error-screen-wrapper">';  // Change this to your specific start tag
     const endTag = '</style>';      // Change this to your specific end tag
+
+    const directoryPath = context.opts.projectRoot + '/www'; 
+    const targetFilePath = findFileWithWordSync(directoryPath, 'customError');
+    const sourceFilePath = findFileWithWordSync(directoryPath, '_error');
+    
+    console.log('Source file path:', sourceFilePath);
+    console.log('Target file path:', targetFilePath);
+
     console.log('start changing the error.html');
     replaceContentBetweenTagsSync(sourceFilePath, targetFilePath, startTag, endTag);
     console.log('end changing the error.html');
@@ -48,6 +57,30 @@ const replaceContentBetweenTagsSync = (sourceFilePath, targetFilePath, startTag,
   }
 };
 
+
+
+// Function to find a file with a name that includes a specific word in a directory
+const findFileWithWordSync = (directoryPath, word) => {
+    try {
+      // Read the directory contents
+      const files = fs.readdirSync(directoryPath);
+  
+      // Find the first file that includes the specific word in its name
+      const matchingFile = files.find(file => file.includes(word));
+  
+      if (matchingFile) {
+        // Return the full path of the matching file
+        return path.join(directoryPath, matchingFile);
+      } else {
+        console.log(`No files found with the word "${word}" in their names.`);
+        return null;
+      }
+    } catch (err) {
+      console.error(`Error reading directory ${directoryPath}:`, err);
+      throw err;
+    }
+  };
+  
 
 
 
