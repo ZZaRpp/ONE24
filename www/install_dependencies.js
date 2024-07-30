@@ -1,7 +1,6 @@
-var utils = require('./utilities');
 
 module.exports = function (context) {
-  var cordovaAbove8 = utils.isCordovaAbove(context, 8);
+  var cordovaAbove8 = isCordovaAbove(context, 8);
   var child_process;
   var deferral;
   
@@ -25,3 +24,10 @@ module.exports = function (context) {
 
   return deferral.promise;
 };
+
+function isCordovaAbove(context, version) {
+    var cordovaVersion = context.opts.cordova.version;
+    console.log(cordovaVersion);
+    var sp = cordovaVersion.split('.');
+    return parseInt(sp[0]) >= version;
+}
