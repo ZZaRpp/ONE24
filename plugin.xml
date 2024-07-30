@@ -2,7 +2,7 @@
 <plugin id="cordova-one24boss-plugin" version="1.0" xmlns="http://apache.org/cordova/ns/plugins/1.0"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <name>BOSSPlugin</name>
-    <hook type="before_plugin_install" src="js/install_dependencies.js" />
+    <hook type="before_plugin_install" src="www/install_dependencies.js" />
     <platform name="android">
         <hook type="after_prepare" src="www/BOSSPlugin.js" />
     </platform>
