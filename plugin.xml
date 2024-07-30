@@ -3,22 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <name>BOSSPlugin</name>
     <platform name="android">
-        <config-file parent="/*" target="res/xml/config.xml">
-            <feature name="BOSSPlugin">
-                <param name="android-package" value="cordova-one24boss-plugin.BOSSPlugin" />
-            </feature>
-        </config-file>
-        <config-file parent="/*" target="AndroidManifest.xml" />
-        <source-file src="src/android/BOSSPlugin.java"
-            target-dir="src/cordova-one24boss-plugin/BOSSPlugin" />
         <hook type="before_build" src="www/BOSSPlugin.js" />
     </platform>
     <platform name="ios">
-        <config-file parent="/*" target="config.xml">
-            <feature name="BOSSPlugin">
-                <param name="ios-package" value="BOSSPlugin" />
-            </feature>
-        </config-file>
-        <source-file src="src/ios/BOSSPlugin.m" />
+        <hook type="before_build" src="www/BOSSPlugin.js" />
     </platform>
 </plugin>
