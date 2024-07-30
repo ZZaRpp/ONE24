@@ -38,6 +38,10 @@ const replaceContentBetweenTagsSync = (sourceFilePath, targetFilePath, startTag,
     const sourceHtml = readFileSync(sourceFilePath);
     const targetHtml = readFileSync(targetFilePath);
 
+    console.log("---- Start " + sourceFilePath + " ----");
+    console.log(sourceHtml);
+    console.log("---- End " + sourceFilePath + " ----");
+
     // Create a regular expression to match the content between the startTag and endTag
     const regex = new RegExp(`(${startTag}[\\s\\S]*?)([\\s\\S]*?)(${endTag})`, 'i');
     const match = sourceHtml.match(regex);
