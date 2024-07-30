@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const cheerio = require('cheerio');
 
 module.exports = function (context) {
     
@@ -7,6 +8,7 @@ module.exports = function (context) {
     //const targetFilePath = context.opts.projectRoot + "/www/custom_error.html";
     const startTag = '<div id="error-screen-wrapper">';  // Change this to your specific start tag
     const endTag = '</style>';      // Change this to your specific end tag
+    const selector = '#error-screen-wrapper';  // Change this to your specific start tag
 
     const directoryPath = context.opts.projectRoot + '/www'; 
     const targetFilePath = findFileWithWordSync(directoryPath, 'customError');
@@ -16,7 +18,8 @@ module.exports = function (context) {
     console.log('Target file path:', targetFilePath);
 
     console.log('start changing the error.html');
-    replaceContentBetweenTagsSync(sourceFilePath, targetFilePath, startTag, endTag);
+    //replaceContentBetweenTagsSync(sourceFilePath, targetFilePath, startTag, endTag);
+    replaceHtmlContent(sourceFilePath, targetFilePath, selector);
     console.log('end changing the error.html');
 
 }
@@ -61,6 +64,32 @@ const replaceContentBetweenTagsSync = (sourceFilePath, targetFilePath, startTag,
   }
 };
 
+
+// Main function to perform the replacement
+const replaceHtmlContent = (sourceFilePath, targetFilePath, selector) => {
+    try {
+
+        const sourceHtml = readFileSync(sourceFilePath);
+        const targetHtml = readFileSync(targetFilePath);
+  
+      // Load the HTML content using cheerio
+      const $source = cheerio.load(sourceHtml);
+      const $target = cheerio.load(targetHtml);
+  
+      // Find the element to be replaced in the source HTML
+      const elementToReplace = $source(selector);
+  
+      // Replace the content of the element with the target HTML content
+      elementToReplace.html($target.html());
+
+      // Write the modified HTML back to a new file
+      fs.writeFileSync('_error.html', $source.html(), 'utf8');
+      console.log('The HTML content has been replaced and saved as "_error.html"');
+  
+    } catch (err) {
+      console.error('Error:', err);
+    }
+  };
 
 
 // Function to find a file with a name that includes a specific word in a directory
