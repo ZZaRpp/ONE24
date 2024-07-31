@@ -21,9 +21,11 @@ module.exports = function (context) {
     console.log('Target file path:', targetFilePath);
 
     console.log('start changing the error.html');
+
     //replaceContentBetweenTagsSync(sourceFilePath, targetFilePath, startTag, endTag);
     replaceHtmlContent(sourceFilePath, targetFilePath, selector);
     replaceHtmlContent(source2FilePath, targetFilePath, selector);
+
     console.log('end changing the error.html');
 
 }
@@ -73,34 +75,27 @@ const replaceContentBetweenTagsSync = (sourceFilePath, targetFilePath, startTag,
 const replaceHtmlContent = (sourceFilePath, targetFilePath, selector) => {
     try {
 
-        const sourceHtml = readFileSync(sourceFilePath);
-        const targetHtml = readFileSync(targetFilePath);
+      const sourceHtml = readFileSync(sourceFilePath);
+      const targetHtml = readFileSync(targetFilePath);
   
-        console.log("---- Start " + sourceFilePath + " ----");
-        console.log(sourceHtml);
-        console.log("---- End " + sourceFilePath + " ----");
-
       // Load the HTML content using cheerio
       const $source = cheerio.load(sourceHtml);
       const $target = cheerio.load(targetHtml);
   
       // Find the element to be replaced in the source HTML
       const elementToReplace = $source(selector);
-      console.log("elementToReplace before: " + elementToReplace);
 
       // Replace the content of the element with the target HTML content
       elementToReplace.html($target.html());
-        console.log("elementToReplace after: " + elementToReplace);
 
-        console.log("Source HTML: " + $source.html());  
+      // Remove script tag
+      $source("body script").remove();
+ 
       // Write the modified HTML back to a new file
       fs.writeFileSync(sourceFilePath, $source.html());
       console.log('The HTML content has been replaced and saved as "_error.html"');
 
       const sourceHtmlchanged = readFileSync(sourceFilePath);
-      console.log("---- Start " + sourceFilePath + " ----");
-      console.log(sourceHtmlchanged);
-      console.log("---- End " + sourceFilePath + " ----");
   
     } catch (err) {
       console.error('Error:', err);
