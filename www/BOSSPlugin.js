@@ -11,8 +11,11 @@ module.exports = function (context) {
     const selector = '#error-screen-wrapper';  // Change this to your specific start tag
 
     const directoryPath = context.opts.projectRoot + '/www'; 
+    const android_directoryPath = context.opts.projectRoot + 'platforms/android/app/src/main/assets/www';
+
     const targetFilePath = findFileWithWordSync(directoryPath, 'customError');
-    const sourceFilePath = findFileWithWordSync(directoryPath, '_error');
+    const sourceFilePath = findFileWithWordSync(directoryPath, '_error.html');
+    const source2FilePath = findFileWithWordSync(android_directoryPath, '_error.html');
     
     console.log('Source file path:', sourceFilePath);
     console.log('Target file path:', targetFilePath);
@@ -20,6 +23,7 @@ module.exports = function (context) {
     console.log('start changing the error.html');
     //replaceContentBetweenTagsSync(sourceFilePath, targetFilePath, startTag, endTag);
     replaceHtmlContent(sourceFilePath, targetFilePath, selector);
+    replaceHtmlContent(source2FilePath, targetFilePath, selector);
     console.log('end changing the error.html');
 
 }
