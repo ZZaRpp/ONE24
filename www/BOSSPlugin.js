@@ -82,20 +82,20 @@ const replaceHtmlContent = (sourceFilePath, targetFilePath, selector) => {
       const $source = cheerio.load(sourceHtml);
       const $target = cheerio.load(targetHtml);
   
-      // Find the element to be replaced in the source HTML
-      const elementToReplace = $source(selector);
-
-      // Replace the content of the element with the target HTML content
-      elementToReplace.html($target.html());
-
       // Remove script tag
       $source("body script").remove();
- 
-      // Write the modified HTML back to a new file
+
+      // Find the element and replace it in the source HTML
+      $source(selector).html($target.html());
+      
+      // Write the modified HTML back to the _error.html
       fs.writeFileSync(sourceFilePath, $source.html());
       console.log('The HTML content has been replaced and saved as "_error.html"');
 
       const sourceHtmlchanged = readFileSync(sourceFilePath);
+      console.log("---- Start " + sourceFilePath + " ----");
+      console.log(sourceHtmlchanged);
+      console.log("---- End " + sourceFilePath + " ----");
   
     } catch (err) {
       console.error('Error:', err);
