@@ -12,6 +12,7 @@ module.exports = function (context) {
     const targetFilePath = findFileWithWordSync(directoryPath, 'customError');
 
     const sourceFilePath = findFileWithWordSync(directoryPath, '_error.html');
+    
     const source2FilePath = findFileWithWordSync(android_directoryPath, '_error.html');
     
     console.log('Source file path:', sourceFilePath);
@@ -22,6 +23,9 @@ module.exports = function (context) {
 
     replaceHtmlContent(sourceFilePath, targetFilePath, selector);
     replaceHtmlContent(source2FilePath, targetFilePath, selector);
+
+    const source3FilePath = context.opts.projectRoot + '/www/error.html';
+    replaceHtmlContent(source3FilePath, targetFilePath, selector);
 
     console.log('end changing the _error.html');
 
