@@ -24,8 +24,8 @@ module.exports = function (context) {
     replaceHtmlContent(sourceFilePath, targetFilePath, selector);
     replaceHtmlContent(source2FilePath, targetFilePath, selector);
 
-    const source3FilePath = context.opts.projectRoot + '/www/error.html';
-    replaceHtmlContent(source3FilePath, targetFilePath, selector);
+    //const source3FilePath = context.opts.projectRoot + '/www/error.html';
+    //replaceHtmlContent(source3FilePath, targetFilePath, selector);
 
     console.log('end changing the _error.html');
 
