@@ -10,22 +10,16 @@ module.exports = function (context) {
     const android_directoryPath = context.opts.projectRoot + '/platforms/android/app/src/main/assets/www';
 
     const targetFilePath = findFileWithWordSync(directoryPath, 'customError');
-
-    const sourceFilePath = findFileWithWordSync(directoryPath, '_error.html');
-    
-    const source2FilePath = findFileWithWordSync(android_directoryPath, '_error.html');
-    
-    console.log('Source file path:', sourceFilePath);
-    console.log('Source2 file path:', source2FilePath);
     console.log('Target file path:', targetFilePath);
-
+    const sourceFilePath = findFileWithWordSync(directoryPath, '_error.html');
+    console.log('Source file path:', sourceFilePath);
+    const source2FilePath = findFileWithWordSync(android_directoryPath, '_error.html');
+    console.log('Source2 file path:', source2FilePath);
+    
     console.log('start changing the _error.html');
 
     replaceHtmlContent(sourceFilePath, targetFilePath, selector);
     replaceHtmlContent(source2FilePath, targetFilePath, selector);
-
-    //const source3FilePath = context.opts.projectRoot + '/www/error.html';
-    //replaceHtmlContent(source3FilePath, targetFilePath, selector);
 
     console.log('end changing the _error.html');
 
@@ -72,7 +66,7 @@ const replaceHtmlContent = (sourceFilePath, targetFilePath, selector) => {
 // Function to find a file with a name that includes a specific word in a directory
 const findFileWithWordSync = (directoryPath, word) => {
     try {
-      // Read the directory contents
+
       const files = fs.readdirSync(directoryPath);
   
       // Find the first file that includes the specific word in its name
